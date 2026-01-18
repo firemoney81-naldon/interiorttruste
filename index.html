@@ -1,23 +1,412 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- Schema.org JSON-LD (Updated for Interior Design) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "26평 인테리어 전문",
+      "description": "26평 아파트 인테리어 비용 견적 비교, 시공 사례 및 디자인 트렌드 분석 정보 제공",
+      "url": "https://www.26pyeong-interior.com",
+      "priceRange": "$$",
+      "serviceType": [
+        "26평 아파트 인테리어",
+        "26평 리모델링",
+        "부분 인테리어",
+        "가성비 인테리어",
+        "26평 토탈 인테리어"
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "서울특별시",
+        "addressRegion": "서울",
+        "streetAddress": "26평 인테리어 관련 정보"
+      }
+    }
+    </script>
+
+    <style>
+      /* --- Global Reset and Typography --- */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Noto Sans KR', sans-serif;
+        line-height: 1.7;
+        color: #333;
+        background-color: #f7f9fb; /* Soft, light background */
+      }
+      a { color: #007bff; text-decoration: none; transition: color 0.3s ease; }
+      a:hover, a:focus { color: #0056b3; text-decoration: underline; }
+      main { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+
+      /* --- Header and Navigation --- */
+      header {
+        background-color: #ffffff;
+        border-bottom: 1px solid #e0e0e0;
+        padding: 20px 0;
+        text-align: center;
+        position: sticky; top: 0; z-index: 100;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .header-container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+      header h1 { font-size: 2.2rem; margin-bottom: 10px; color: #004d40; }
+      header p { color: #666; font-size: 1.1rem; }
+      nav { margin-top: 15px; }
+      nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; }
+      nav ul li a {
+        color: #444;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 8px 15px;
+        border-radius: 20px;
+        background-color: #f0f0f0;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      nav ul li a:hover { background-color: #e0f2f1; color: #004d40; }
+
+      /* --- Content Sections and Typography --- */
+      section { background-color: #ffffff; padding: 30px; border-radius: 12px; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); }
+      h2 { color: #004d40; font-size: 2rem; border-left: 5px solid #004d40; padding-left: 15px; margin-bottom: 25px; line-height: 1.3; font-weight: 700; }
+      h3 { color: #2e7d32; font-size: 1.5rem; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; margin-top: 25px; margin-bottom: 15px; }
+      p { font-size: 1.1rem; margin-bottom: 15px; }
+      strong { font-weight: 700; color: #004d40; }
+      ul { margin-left: 20px; margin-bottom: 15px; font-size: 1.05rem; }
+      li { margin-bottom: 8px; }
+
+      /* --- Key Features and Visual Elements --- */
+      .highlight-box {
+        background-color: #e0f2f1; /* Soft teal background */
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 25px;
+        border-left: 4px solid #004d40;
+      }
+      .highlight-box h3 { color: #004d40; border-bottom: none; }
+
+      /* Table Styles */
+      table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 1rem; }
+      th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+      th { background-color: #f0f0f0; color: #333; font-weight: 600; }
+      tr:nth-child(even) { background-color: #f9f9f9; }
+
+      /* Chart/Graph Styles (Simple CSS Bar Chart Simulation) */
+      .chart-container { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+      .chart-bar { display: flex; align-items: center; background-color: #f0f0f0; border-radius: 4px; overflow: hidden; height: 35px; }
+      .chart-bar-fill { height: 100%; background-color: #004d40; color: white; display: flex; align-items: center; padding: 0 10px; font-size: 0.9rem; font-weight: bold; }
+      .chart-label { width: 150px; flex-shrink: 0; padding-left: 10px; font-weight: 500; }
+
+      /* Keywords Lists */
+      .keywords-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 15px; margin-bottom: 20px; }
+      .keywords-list span {
+        background-color: #e0f2f1;
+        color: #004d40;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: background-color 0.3s ease;
+      }
+      .keywords-list span:hover { background-color: #c8e6c9; }
+
+      /* --- Call to Action and Form Styles --- */
+      .cta-section { text-align: center; margin-bottom: 40px; }
+      .cta-button {
+        display: inline-block;
+        background-color: #2e7d32;
+        color: white;
+        padding: 16px 32px;
+        font-size: 1.2rem;
+        border-radius: 30px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        border: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .cta-button:hover, .cta-button:focus { background-color: #1b5e20; transform: translateY(-2px); text-decoration: none; }
+
+      /* Form Elements */
+      .form-group { margin-bottom: 20px; }
+      label { display: block; font-weight: 600; margin-bottom: 8px; color: #555; }
+      input[type="text"], input[type="email"], input[type="tel"], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 1rem;
+        background-color: #fafafa;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, textarea:focus {
+        border-color: #004d40;
+        box-shadow: 0 0 0 3px rgba(0, 77, 64, 0.1);
+        outline: none;
+      }
+      textarea { resize: vertical; min-height: 120px; }
+      .form-submit { text-align: center; }
+
+      /* --- Footer --- */
+      footer { background-color: #004d40; color: #a5d6a7; text-align: center; padding: 30px 10px; font-size: 0.9rem; margin-top: 50px; }
+      footer address { color: #cfcfcf; font-style: normal; margin-top: 10px; }
+
+      /* --- Responsive Design --- */
+      @media (max-width: 768px) {
+        header h1 { font-size: 1.8rem; }
+        nav ul { flex-direction: column; gap: 10px; margin-top: 10px; }
+        nav ul li a { padding: 8px 10px; font-size: 0.9rem; }
+        main { padding: 0 15px; }
+        h2 { font-size: 1.6rem; padding-left: 10px; }
+        section { padding: 20px; }
+        p, ul, li { font-size: 1rem; }
+        .chart-bar { flex-direction: column; height: auto; align-items: stretch; }
+        .chart-label { width: 100%; text-align: center; padding: 5px 0; background-color: #f0f0f0; border-radius: 4px; }
+        .chart-bar-fill { height: 30px; }
+        .cta-button { width: 100%; font-size: 1.1rem; padding: 15px; }
+        th, td { padding: 10px; }
+      }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <h1>26평 인테리어 | 2026년 최신 정보 및 견적 가이드</h1>
+            <p>26평 아파트 리모델링, 비용부터 디자인 트렌드까지 A to Z 완벽 분석</p>
+        </div>
+        <nav aria-label="주요 콘텐츠 메뉴">
+            <ul>
+                <li><a href="#intro">시작하기</a></li>
+                <li><a href="#cost">비용 분석</a></li>
+                <li><a href="#design">디자인 트렌드</a></li>
+                <li><a href="#case">사례 및 후기</a></li>
+                <li><a href="#local">지역별 정보</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#contact">문의하기</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <!-- Section 1: Introduction -->
+        <section id="intro">
+            <h2>합리적인 26평 인테리어 시작하기</h2>
+            <p><strong>26평 인테리어</strong>는 우리나라 아파트에서 가장 흔하게 찾아볼 수 있는 면적대 중 하나입니다. 26평 아파트 리모델링은 좁지도 넓지도 않은 공간을 어떻게 효율적으로 활용하느냐가 핵심 관건입니다. 단순히 예쁘게 꾸미는 것을 넘어, 실용성과 가족 구성원의 라이프스타일을 반영한 디자인이 중요합니다. 2026년 현재 인테리어 시장의 최신 트렌드와 함께, 합리적인 <strong>26평 인테리어 비용</strong>을 절감할 수 있는 노하우를 공개합니다.</p>
+            <p>성공적인 <strong>26평 리모델링</strong>을 위해서는 단순히 저렴한 곳을 찾는 것보다, 투명한 견적을 제시하고 전문성을 갖춘 업체와 함께하는 것이 중요합니다. 이 가이드를 통해 <strong>26평 인테리어 장점</strong>과 <strong>단점</strong>, 그리고 합리적인 <strong>26평 인테리어 견적</strong>을 비교하는 방법을 확인하실 수 있습니다.</p>
+            <div class="cta-section">
+                <a href="#contact" class="cta-button" aria-label="무료 견적 상담 받기">26평 인테리어 맞춤 견적 상담하기</a>
+            </div>
+        </section>
+
+        <!-- Section 2: Cost Analysis -->
+        <section id="cost">
+            <h2>26평 인테리어 비용: 2026년 예상 견적 분석</h2>
+            <p><strong>26평 인테리어 비용</strong>은 시공 범위와 자재 등급에 따라 천차만별입니다. <strong>26평 인테리어 평균 금액</strong>을 알아보기 위해서는 '전체 리모델링(토탈)'과 '부분 리모델링'으로 나누어 접근해야 합니다. <strong>26평 인테리어 싼곳</strong>을 찾기 위해 무조건 저가 업체만 고집할 경우 추후 A/S나 마감 품질에서 문제가 발생할 수 있으므로, 적정 수준의 예산을 설정하는 것이 중요합니다.</p>
+
+            <h3>26평 인테리어 평균 비용 비교 (전체 vs. 부분)</h3>
+            <p>다음 표는 2026년 기준 <strong>26평 인테리어 예상 금액</strong>을 시공 범위에 따라 비교한 자료입니다. 이 금액은 일반적인 자재 기준이며, 수입 자재나 고급 마감재를 사용할 경우 상승할 수 있습니다.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>시공 범위</th>
+                        <th>평균 예상 금액 (26평 기준)</th>
+                        <th>주요 시공 내용</th>
+                        <th>시공 기간 (예상)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>전체 리모델링 (Full)</strong></td>
+                        <td>3,000만 원 ~ 4,500만 원 이상</td>
+                        <td>샷시 교체, 화장실 2개 전체, 주방 전체, 바닥 전체, 도배, 전기/조명, 철거 및 구조 변경</td>
+                        <td>4주 ~ 6주</td>
+                    </tr>
+                    <tr>
+                        <td><strong>부분 리모델링 (Semi-Full)</strong></td>
+                        <td>1,500만 원 ~ 2,500만 원</td>
+                        <td>화장실 1개, 주방 싱크대 교체, 바닥재 일부 교체, 도배/페인트, 조명 교체 (샷시 제외)</td>
+                        <td>2주 ~ 3주</td>
+                    </tr>
+                    <tr>
+                        <td><strong>셀프/부분 시공 (DIY)</strong></td>
+                        <td>500만 원 ~ 1,000만 원</td>
+                        <td>도배, 장판, 조명 등 개별 시공 (전문가 도움 없이 진행)</td>
+                        <td>1주 이내</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>주요 시공 항목별 26평 인테리어 비용 분석</h3>
+            <p><strong>26평 인테리어 견적</strong>에서 가장 큰 비중을 차지하는 항목은 주방과 샷시, 그리고 욕실입니다. 이 세 가지 항목의 비중에 따라 전체 금액이 크게 달라집니다. 특히 샷시 교체는 단열 효과에 직결되므로, <strong>26평 아파트 리모델링</strong> 시 예산을 아끼기 어려운 항목입니다.</p>
+
+            <h4>26평 인테리어 비용 상세 항목별 비중 (그래프 시뮬레이션)</h4>
+            <div class="chart-container" aria-label="26평 인테리어 비용 항목별 비중">
+                <div class="chart-bar">
+                    <span class="chart-label">주방/싱크대</span>
+                    <div class="chart-bar-fill" style="width: 25%;">25% (고가형)</div>
+                </div>
+                <div class="chart-bar">
+                    <span class="chart-label">욕실 (2개 기준)</span>
+                    <div class="chart-bar-fill" style="width: 20%;">20%</div>
+                </div>
+                <div class="chart-bar">
+                    <span class="chart-label">창호(샷시)</span>
+                    <div class="chart-bar-fill" style="width: 20%;">20%</div>
+                </div>
+                <div class="chart-bar">
+                    <span class="chart-label">바닥재(마루/장판)</span>
+                    <div class="chart-bar-fill" style="width: 15%;">15%</div>
+                </div>
+                <div class="chart-bar">
+                    <span class="chart-label">도배/페인트</span>
+                    <div class="chart-bar-fill" style="width: 10%;">10%</div>
+                </div>
+                <div class="chart-bar">
+                    <span class="chart-label">조명/전기/기타</span>
+                    <div class="chart-bar-fill" style="width: 10%;">10%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Design Trends -->
+        <section id="design">
+            <h2>2026년 26평 아파트 인테리어 디자인 트렌드</h2>
+            <p>최근 <strong>26평 인테리어</strong> 트렌드는 '공간 효율성'과 '미니멀리즘'으로 요약됩니다. 특히 26평과 같이 중소형 면적에서는 실제 면적보다 넓어 보이게 하는 시각적 트릭이 중요합니다. <strong>26평 아파트 인테리어 장점</strong>을 극대화하고 <strong>단점</strong>을 보완하는 디자인 포인트를 살펴보겠습니다.</p>
+
+            <h3>1. 공간 확장형 디자인 (가벽 제거 및 개방형 구조)</h3>
+            <p>26평 아파트에서 가장 많이 시도되는 디자인 변화는 거실과 주방 사이의 가벽을 제거하여 개방형 구조로 만드는 것입니다. <strong>26평 인테리어</strong>에서 거실과 주방이 분리되어 있으면 공간이 더욱 좁게 느껴집니다. 가벽을 제거하여 거실을 확장하고, 아일랜드 식탁을 활용해 주방 공간을 거실과 자연스럽게 연결하는 디자인이 인기를 끌고 있습니다. <strong>26평 인테리어 장단점</strong> 중, 장점인 채광 확보와 단점인 수납 부족을 동시에 해결할 수 있는 방법입니다.</p>
+
+            <h3>2. 히든 도어(Hidden Door) 및 빌트인 수납</h3>
+            <p>수납 공간 확보는 26평 아파트의 숙명입니다. 거실이나 침실의 벽면 전체를 빌트인 수납장으로 구성하되, 손잡이가 없는 '푸시 도어' 방식이나 벽과 일체화되는 '히든 도어'를 적용하여 미니멀한 느낌을 살립니다. 이는 <strong>26평 인테리어</strong>의 좁은 공간이 답답해 보이는 것을 막아주면서도, 넉넉한 수납을 제공하여 <strong>26평 아파트 인테리어 단점</strong>을 상쇄합니다.</p>
+
+            <h3>3. 조명 활용 (간접 조명과 층고 확보)</h3>
+            <p>26평 인테리어에서 조명은 단순히 빛을 내는 도구가 아니라, 공간감을 결정하는 중요한 요소입니다. 우물 천장이나 간접 조명을 활용하면 층고가 높아 보이는 효과를 줍니다. 메인등 없이 간접 조명, 매립등, 팬던트 조명 등을 조합하여 <strong>26평 인테리어</strong>의 분위기를 부드럽게 연출합니다.</p>
+        </section>
+
+        <!-- Section 4: Case Studies and Reviews -->
+        <section id="case">
+            <h2>26평 인테리어 내돈내산 후기 및 성공 사례 분석</h2>
+            <p><strong>26평 인테리어 후기</strong>를 찾아보면 시공 만족도는 업체 선정에 달려있음을 알 수 있습니다. 특히 <strong>26평 인테리어 추천</strong>을 받을 때, 단순히 저렴한 가격보다는 시공 경험이 풍부하고 소통이 원활한 업체를 선택해야 합니다. 다음은 <strong>26평 인테리어 내돈내산</strong> 고객들의 후기를 기반으로 한 성공 사례 분석입니다.</p>
+
+            <h3>사례 1: 30대 신혼부부의 미니멀 인테리어 (가성비 중점)</h3>
+            <p><strong>예상 금액: 2,500만 원 (부분 리모델링)</strong><br />
+            이 신혼부부는 샷시는 교체하지 않고 주방, 욕실, 바닥재(강마루)를 중심으로 리모델링을 진행했습니다. <strong>26평 인테리어 싼곳</strong>을 찾기 위해 발품을 팔았지만, 결국 자재 품질을 고려해 중간 가격대의 전문 업체를 선택했습니다. 화이트 톤의 벽지와 밝은 컬러의 강마루를 사용하여 좁은 공간이 시각적으로 확장되는 효과를 얻었습니다. <strong>26평 인테리어 비용 절감</strong>을 위해 가구는 이케아나 온라인 쇼핑몰을 활용하여 직접 배치했습니다.</p>
+
+            <h3>사례 2: 40대 가족의 라이프스타일 인테리어 (확장형 토탈 시공)</h3>
+            <p><strong>예상 금액: 4,000만 원 (전체 리모델링)</strong><br />
+            자녀가 있는 40대 가족은 <strong>26평 아파트 인테리어</strong> 시공 시 단열에 중점을 두었습니다. 노후된 아파트였기 때문에 샷시 전체 교체와 단열 작업을 필수로 진행했습니다. 거실과 침실 한 곳을 확장하여 서재 공간으로 활용하였고, 층간 소음 완화를 위해 바닥재를 보강했습니다. <strong>26평 인테리어 추천</strong> 업체 선정 시, A/S 기간과 시공 후기를 꼼꼼하게 확인하여 만족도가 높았습니다.</p>
+
+            <div class="highlight-box">
+                <h3>체크포인트: 26평 인테리어 업체 선정 시 유의사항</h3>
+                <ul>
+                    <li><strong>투명한 견적 비교:</strong> 항목별 자재 등급과 인건비가 명확히 분리된 견적서를 확인하세요. <strong>26평 인테리어 견적</strong>은 업체별로 크게 다를 수 있습니다.</li>
+                    <li><strong>시공 경험:</strong> 26평대 아파트 시공 경험이 많은지, 비슷한 평형대 포트폴리오를 확인하세요.</li>
+                    <li><strong>A/S 보장:</strong> 계약서에 명시된 A/S 기간과 범위를 꼼꼼히 체크하여 <strong>26평 인테리어</strong> 후의 만족도를 높이세요.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 5: Location-specific Keywords and SEO -->
+        <section id="local">
+            <h2>지역별 26평 인테리어: 전국 주요 키워드 분석</h2>
+            <p><strong>26평 인테리어 비용</strong>은 지역별로 자재 운송비, 인건비, 업체 경쟁도에 따라 차이가 발생합니다. 2026년 기준, 수도권 지역은 지방에 비해 상대적으로 인테리어 업체 경쟁이 치열하여 <strong>26평 인테리어 견적</strong>의 폭이 넓게 형성되어 있습니다. <strong>26평 인테리어 추천</strong> 업체를 찾기 위해 많은 분들이 지역명을 함께 검색합니다. 다음은 전국 주요 지역별 <strong>26평 인테리어</strong> 관련 키워드입니다.</p>
+
+            <div class="keywords-list" aria-label="지역별 26평 인테리어 키워드 목록">
+                <span>서울 26평 인테리어</span> <span>강남 26평 아파트 리모델링</span> <span>서초 26평 인테리어</span> <span>송파 26평 인테리어</span> <span>강동 26평 리모델링</span>
+                <span>용산 26평 아파트 인테리어</span> <span>마포 26평 인테리어</span> <span>은평구 26평 리모델링</span> <span>경기 26평 인테리어</span> <span>인천 26평 인테리어</span>
+                <span>수원 26평 인테리어</span> <span>성남 26평 인테리어</span> <span>분당 26평 인테리어</span> <span>일산 26평 인테리어</span> <span>고양 26평 리모델링</span>
+                <span>파주 26평 아파트 인테리어</span> <span>대전 26평 인테리어</span> <span>세종 26평 인테리어</span> <span>청주 26평 인테리어</span> <span>천안 26평 리모델링</span>
+                <span>부산 26평 인테리어</span> <span>해운대 26평 인테리어</span> <span>대구 26평 아파트 리모델링</span> <span>울산 26평 인테리어</span> <span>창원 26평 리모델링</span>
+                <span>경남 26평 인테리어</span> <span>경북 26평 인테리어</span> <span>광주 26평 인테리어</span> <span>전주 26평 인테리어</span> <span>순천 26평 인테리어</span>
+                <span>제주 26평 인테리어</span> <span>원주 26평 인테리어</span> <span>강릉 26평 인테리어</span> <span>충북 26평 인테리어</span> <span>충남 26평 인테리어</span>
+            </div>
+        </section>
+
+        <!-- Section 6: Automated/Related Keywords -->
+        <section>
+            <h2>함께 많이 찾는 키워드 및 자동완성 검색어</h2>
+            <p><strong>26평 인테리어</strong>를 검색하는 사용자들이 함께 많이 찾는 연관 키워드입니다. 이러한 키워드를 통해 사용자들의 잠재적인 궁금증을 미리 파악할 수 있습니다. <strong>26평 아파트 리모델링</strong> 시 고려해야 할 다양한 측면을 나타냅니다.</p>
+
+            <h3>네이버 자동완성 키워드 목록</h3>
+            <div class="keywords-list" aria-label="자동완성 키워드 목록">
+                <span>26평 인테리어 비용</span> <span>26평 아파트 인테리어 견적</span> <span>26평 인테리어 싼곳</span> <span>26평 인테리어 후기</span>
+                <span>26평 인테리어 잘하는 곳</span> <span>26평 인테리어 평균가</span> <span>26평 인테리어 업체 순위</span> <span>26평 인테리어 장단점</span>
+                <span>26평 인테리어 내돈내산</span> <span>26평 인테리어 리모델링 차이점</span> <span>26평 인테리어 가이드</span>
+            </div>
+
+            <h3>연관 검색어 및 '함께 많이 찾는' 키워드 목록</h3>
+            <div class="keywords-list" aria-label="연관 검색어 목록">
+                <span>26평 아파트 부분 인테리어</span> <span>26평 인테리어 가성비</span> <span>26평 주방 인테리어</span> <span>26평 화장실 리모델링</span>
+                <span>26평 샷시 교체 비용</span> <span>26평 인테리어 예산 짜기</span> <span>인테리어 업체 가입 시 주의사항</span> <span>26평 아파트 평면도</span>
+            </div>
+        </section>
+
+        <!-- Section 7: External Links and Reliability -->
+        <section id="external-info">
+            <h2>공신력 있는 26평 인테리어 정보 출처 및 참고 자료</h2>
+            <p><strong>26평 인테리어</strong> 관련 정보의 신뢰성을 높이기 위해 공인된 기관이나 전문 사이트의 정보를 참고하는 것이 중요합니다. 인테리어 시공 기준, 자재 품질 인증, 주택 건설 기준 등과 관련된 정보를 확인하세요. 다음은 참고할 만한 공신력 있는 외부 자료입니다.</p>
+            <ul>
+                <li><strong>국토교통부 주택 건설 기준 등에 관한 규정</strong>: <a href="http://www.molit.go.kr" class="internal-link" target="_blank">주택 건설 기준</a> (주택 건설 및 리모델링 관련 법규 확인)</li>
+                <li><strong>한국소비자원 피해구제 사례</strong>: <a href="http://www.kca.go.kr" class="internal-link" target="_blank">소비자 피해 정보</a> (인테리어 시공 관련 소비자 분쟁 사례 참고)</li>
+                <li><strong>건축자재 품질 인증 정보</strong>: <a href="http://www.koreatest.org" class="internal-link" target="_blank">자재 품질 및 인증</a> (KS 마크, 친환경 마크 등 자재 인증 정보 확인)</li>
+                <li><strong>Namuwiki (인테리어 항목)</strong>: <a href="https://namu.wiki/w/%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4" class="internal-link" target="_blank">인테리어 나무위키</a> (인테리어 기본 개념 및 용어 참고)</li>
+                <li><strong>대한주택건설협회</strong>: <a href="http://www.hka.or.kr" class="internal-link" target="_blank">주택 건설 통계 및 정보</a> (주택 시장 동향 및 통계 자료 확인)</li>
+            </ul>
+        </section>
+
+        <!-- Section 8: Consultation Forms and Engagement -->
+        <section id="contact">
+            <h2>26평 인테리어 맞춤 견적 및 상담 요청</h2>
+            <p>성공적인 <strong>26평 인테리어</strong>를 위해 전문가의 맞춤 상담을 받아보세요. 저희는 <strong>26평 인테리어 평균</strong> 비용을 고려하여 최적의 가성비 <strong>견적</strong>을 제공합니다. 아래 양식을 작성해 주시면 담당자가 빠르게 연락드리겠습니다. (입력란을 통해 체류 시간을 높입니다.)</p>
+
+            <h3>1. 인테리어 예산 범위 선택 (체류 시간 증진)</h3>
+            <div class="form-group">
+                <label for="budget">예상 인테리어 예산을 선택해주세요.</label>
+                <select id="budget" name="budget">
+                    <option value="">예산 범위 선택</option>
+                    <option value="1000-2000">1,000만 원 ~ 2,000만 원</option>
+                    <option value="2000-3000">2,000만 원 ~ 3,000만 원</option>
+                    <option value="3000-4000">3,000만 원 ~ 4,000만 원</option>
+                    <option value="4000-5000">4,000만 원 이상</option>
+                </select>
+            </div>
+
+            <h3>2. 원하는 디자인 스타일 선택 (체류 시간 증진)</h3>
+            <div class="form-group">
+                <label for="style">선호하는 인테리어 스타일을 선택해주세요.</label>
+                <select id="style" name="style">
+                    <option value="">스타일 선택</option>
+                    <option value="minimal">미니멀리즘 (화이트/그레이톤)</option>
+                    <option value="modern">모던 클래식 (몰딩/웨인스코팅)</option>
+                    <option value="natural">내추럴/우드톤</option>
+                    <option value="scandi">스칸디나비아/북유럽</option>
+                    <option value="industrial">인더스트리얼/빈티지</option>
+                </select>
+            </div>
+
+            <h3>3. 상세 상담 요청</h3>
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="name">이름</label>
+                    <input type="text" id="name" name="name" placeholder="이름을 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">연락처</label>
+                    <input type="tel" id="phone" name="phone" placeholder="전화번호를 입력하세요" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">이메일 (선택 사항)</label>
+                    <input type="email" id="email" name="email" placeholder="이메일 주소를 입력하세요">
+                </div>
+                <div class="form-group">
+                    <label for="message">문의 내용 (구체적으로 작성해주세요)</label>
+                    <textarea id="message" name="message" placeholder="희망 시공 범위, 입주 예정일 등 상세 내용을 작성해주세요."></textarea>
+                </div>
+                <div class="form-group form-submit">
+                    <button type="submit" class="cta-button">상담 요청하기</button>
+                </div>
+            </form>
+        </section>
+
     </main>
-  </body>
-</html>
+
+
+  
